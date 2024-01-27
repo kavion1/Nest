@@ -9,13 +9,14 @@ import {
   Entity,
   JoinColumn,
   JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('posts')
 export class PostsEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number; // 标记为主列，值自动生成
 
   @Column({ length: 50, comment: '标题' })
@@ -52,28 +53,21 @@ export class PostsEntity {
   status: number;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @ManyToOne((type) => User, (user) => user.NickName)
-  author: string;
+  @Column()
+  authorid: number;
 
-  @Exclude()
-  @ManyToOne(() => CategoryEntity, (category) => category.posts)
-  @JoinColumn({ name: 'category_id' })
-  category: CategoryEntity;
+  @Column()
+  categoryid: number;
 
-  @ManyToOne(() => TagEntity, (tag) => tag.posts)
-  @JoinTable({
-    name: 'post_tag',
-    joinColumns: [{ name: 'post_id' }],
-    inverseJoinColumns: [{ name: 'tag_id' }],
-  })
-  tags: TagEntity[];
+  @Column()
+  tagid: number;
 
-  @Column({ type: 'timestamp', name: 'publish_time', default: null })
+  @Column({ type: 'timestamp', name: 'publish_time', default: null, comment: '发布时间' })
   publishTime: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', comment: '创建时间' })
   create_time: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', comment: '更新时间' })
   update_time: Date;
 }

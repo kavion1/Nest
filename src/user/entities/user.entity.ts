@@ -38,8 +38,7 @@ export class User {
   @Column('enum', { enum: ['root', 'author', 'visitor'], default: 'visitor' })
   role: string; //角色
 
-  @OneToMany(() => PostsEntity, (post) => post.author)
-  posts: PostsEntity[];
+
 
   @Column({
     name: 'create_time',

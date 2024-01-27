@@ -17,8 +17,6 @@ export class TagEntity {
   @Column()
   name: string;
 
-  @ManyToMany(() => PostsEntity, (post) => post.tags)
-  posts: Array<PostsEntity>;
 
   @CreateDateColumn({
     type: 'timestamp',

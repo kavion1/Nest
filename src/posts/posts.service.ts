@@ -22,7 +22,6 @@ export class PostsService {
   ) { }
   // 创建文章
   async create(user, post: Partial<CreatePostDto>): Promise<number> {
-    console.log('🚀 ~ PostsService ~ create ~ user:', user, 'post', post);
     const { title } = post;
     if (!title) {
       throw new HttpException('缺少文章标题', HttpStatus.BAD_REQUEST);
@@ -45,9 +44,10 @@ export class PostsService {
     const postParam: Partial<PostsEntity> = {
       ...post,
       isRecommend: isRecommend ? 1 : 0,
-      category: categoryDoc,
-      tags: tags,
-      author: user,
+      categoryid: 1,
+      tagid: 1,
+      authorid: 1
+      // author: user.NickName,
     };
     // 判断状态，为publish则设置发布时间
     if (status === 1) {
@@ -55,11 +55,17 @@ export class PostsService {
         publishTime: new Date(),
       });
     }
+
     const newPost: PostsEntity = await this.postsRepository.create({
       ...postParam,
     });
+
+    console.log("🚀 ~ PostsService ~ create ~ newPost:", newPost)
     const created = await this.postsRepository.save(newPost);
+    console.log("🚀 ~ PostsService ~ create ~ created:", created)
     return created.id;
+
+
   }
 
   async Updatas(Updata: Partial<PostsEntity>): Promise<PostsEntity> {

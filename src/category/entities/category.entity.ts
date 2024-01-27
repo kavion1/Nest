@@ -15,9 +15,6 @@ export class CategoryEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => PostsEntity, (post) => post.category)
-  posts: Array<PostsEntity>;
-
   @CreateDateColumn({
     type: 'timestamp',
     comment: '创建时间',
