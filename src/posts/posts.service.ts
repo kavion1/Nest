@@ -6,6 +6,7 @@ import { PostsEntity } from './posts.entity';
 import { CategoryService } from 'src/category/category.service';
 import { TagService } from 'src/tag/tag.service';
 import { CreatePostDto } from './dto/create-post.dot';
+import { UserService } from 'src/user/user.service';
 export interface PostsRo {
   list: PostsEntity[];
   count: number;
@@ -19,6 +20,7 @@ export class PostsService {
     private readonly postsRepository: Repository<PostsEntity>,
     private readonly categoryService: CategoryService,
     private readonly tagService: TagService,
+    private readonly userService: UserService,
   ) { }
   // 创建文章
   async create(user, post: Partial<CreatePostDto>): Promise<number> {
@@ -36,18 +38,18 @@ export class PostsService {
 
     const { tag, category = 0, status, isRecommend, coverUrl } = post;
 
-    // 根据分类id获取分类
-    const categoryDoc = await this.categoryService.findById(category);
+    let cateId: number = await this.categoryService.checkName(category.toString())
+    let tagid: number = await this.tagService.checkName(category.toString())
+
     // 根据传入的标签id,如 `1,2`,获取标签
     const tags = await this.tagService.findByIds(('' + tag).split(','));
     console.log("🚀 ~ PostsService ~ create ~ tags:", tags)
     const postParam: Partial<PostsEntity> = {
       ...post,
       isRecommend: isRecommend ? 1 : 0,
-      categoryid: 1,
-      tagid: 1,
-      authorid: 1
-      // author: user.NickName,
+      categoryid: cateId,
+      tagid: tagid,
+      authorid: user.NickName
     };
     // 判断状态，为publish则设置发布时间
     if (status === 1) {
@@ -60,9 +62,9 @@ export class PostsService {
       ...postParam,
     });
 
-    console.log("🚀 ~ PostsService ~ create ~ newPost:", newPost)
+
     const created = await this.postsRepository.save(newPost);
-    console.log("🚀 ~ PostsService ~ create ~ created:", created)
+
     return created.id;
 
 

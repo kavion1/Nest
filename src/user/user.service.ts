@@ -61,4 +61,15 @@ export class UserService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+  // async checkName(name: string): Promise<number> {
+  //   const List = await this.userRepository.findOne({ where: { name } })
+  //   if (List) {
+  //     return List.id
+  //   } else {
+  //     const newparam = await this.userRepository.create({ name })
+  //     const info = await this.userRepository.save(newparam)
+  //     return info.id
+  //   }
+  // }
+
 }

@@ -53,13 +53,12 @@ export class PostsEntity {
   status: number;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   authorid: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   categoryid: number;
-
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   tagid: number;
 
   @Column({ type: 'timestamp', name: 'publish_time', default: null, comment: '发布时间' })

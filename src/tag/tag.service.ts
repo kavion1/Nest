@@ -30,4 +30,15 @@ export class TagService {
   remove(id: number) {
     return `This action removes a #${id} tag`;
   }
+  async checkName(name: string): Promise<number> {
+    const List = await this.TagResponstory.findOne({ where: { name } })
+    if (List) {
+      return List.id
+    } else {
+      const newparam = await this.TagResponstory.create({ name })
+      const info = await this.TagResponstory.save(newparam)
+      return info.id
+    }
+  }
+
 }

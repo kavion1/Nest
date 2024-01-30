@@ -7,6 +7,7 @@ import { RolesGuard } from 'src/auth/role.guard';
 import { CategoryModule } from 'src/category/category.module';
 import { TagModule } from 'src/tag/tag.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from 'src/auth/auth.module';
     CategoryModule,
     TagModule,
     AuthModule,
+    UserModule
   ],
   controllers: [PostsController],
   providers: [PostsService],

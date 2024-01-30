@@ -54,8 +54,11 @@ export class PostsController {
    * @param delete
    */
   @ApiOperation({ summary: '删除新文章' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Delete()
   async Delete(@Body() param) {
+    console.log("🚀 ~ PostsController ~ Delete ~ param:", param)
     return await this.postsService.remove(param);
   }
 
