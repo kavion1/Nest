@@ -16,8 +16,6 @@ export class UploadService {
   ) { }
   //七牛
   async getUploadToken(key) {
-    qiniu.conf.ACCESS_KEY = Config.accessKey
-    qiniu.conf.SECRET_KEY = Config.secretKey
     const option = {
       scope: "002112",
       expires: 7200,
