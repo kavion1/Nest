@@ -94,7 +94,6 @@ export class UploadService {
 
       }
     });
-    console.log("🚀 ~ UploadService ~ res ~ res:", res)
   }
 
 
