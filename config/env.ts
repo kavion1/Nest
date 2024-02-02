@@ -14,3 +14,14 @@ function parseEnv() {
   return { path: filePath };
 }
 export default parseEnv();
+
+export const Config = {
+  accessKey: "yzuDIE4LEQhyHzxe62SIa7HwEwjJ0GJP0lnt8jbN",
+  secretKey: "NcF7Vi5-uNGZ8LJHpr1rsNIy0l99i2NabYwpe35b",
+  // options: {
+  //   scope: "",
+  //   // returnBody: `{"key":"$(key)"}`,
+  //   bucket:"002112",
+  //   "name":"$(fname)"}`
+  // },
+}
